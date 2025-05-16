@@ -1,9 +1,11 @@
 """
 Escriba el codigo que ejecute la accion solicitada en cada pregunta. Los
-datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y 
-`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
+datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
+`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y
 librerias de pandas para resolver las preguntas.
 """
+
+import pandas as pd
 
 
 def pregunta_13():
@@ -20,3 +22,12 @@ def pregunta_13():
     E    275
     Name: c5b, dtype: int64
     """
+    # Leer los archivos
+    df0 = pd.read_csv("files/input/tbl0.tsv", sep="\t")
+    df2 = pd.read_csv("files/input/tbl2.tsv", sep="\t")
+
+    # Hacer un merge de los dataframes usando c0 como clave
+    merged_df = pd.merge(df0, df2, on="c0")
+
+    # Calcular la suma de c5b por cada valor de c1
+    return merged_df.groupby("c1")["c5b"].sum()
